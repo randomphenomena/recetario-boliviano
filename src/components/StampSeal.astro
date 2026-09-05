@@ -1,0 +1,47 @@
+---
+// Circular "seal" mark. Uses a cooking pot instead of a llama/andean motif
+// on purpose — the brand represents all three Bolivian regions, not just
+// the altiplano, so the icon stays neutral.
+---
+<div class="relative w-24 h-24 md:w-28 md:h-28 shrink-0">
+  <svg viewBox="0 0 200 200" class="w-full h-full">
+    <circle
+      cx="100" cy="100" r="94"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-dasharray="4 5"
+      class="text-charcoal/70"
+    />
+    <circle
+      cx="100" cy="100" r="80"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      class="text-charcoal/70"
+    />
+
+    <path id="sealCircleTop" d="M 30,100 A 70,70 0 0 1 170,100" fill="none" />
+    <path id="sealCircleBottom" d="M 170,100 A 70,70 0 0 1 30,100" fill="none" />
+
+    <text class="text-charcoal" font-size="12" letter-spacing="2" font-weight="600">
+      <textPath href="#sealCircleTop" startOffset="50%" text-anchor="middle">
+        AUTÉNTICO · COCIDO
+      </textPath>
+    </text>
+    <text class="text-charcoal" font-size="12" letter-spacing="2" font-weight="600">
+      <textPath href="#sealCircleBottom" startOffset="50%" text-anchor="middle">
+        EN CASA
+      </textPath>
+    </text>
+
+    <!-- simple pot + steam glyph, standing in for the seal's center mark -->
+    <g class="text-charcoal" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M70 108 h60 l-6 26 a6 6 0 0 1 -6 5 h-36 a6 6 0 0 1 -6 -5 z" />
+      <path d="M64 108 h72" />
+      <path d="M78 108 v-6 a6 6 0 0 1 6 -6 h32 a6 6 0 0 1 6 6 v6" />
+      <path d="M92 82 q4 -8 0 -14" />
+      <path d="M108 82 q4 -8 0 -14" />
+    </g>
+  </svg>
+</div>
