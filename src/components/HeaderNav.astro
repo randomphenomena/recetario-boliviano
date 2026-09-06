@@ -1,0 +1,41 @@
+---
+interface Props {
+  active: 'recetas' | 'glosario' | 'calculadora';
+}
+
+const { active } = Astro.props;
+
+const tabs = [
+  { label: 'Recetas', href: '/recetas', key: 'recetas' },
+  { label: 'Glosario', href: '/glosario', key: 'glosario' },
+  { label: 'Calculadora', href: '/calculadora', key: 'calculadora' },
+];
+---
+<header class="sticky top-0 z-50 bg-crema/90 backdrop-blur border-b border-grafito/10">
+  <div class="max-w-5xl mx-auto px-6 sm:px-10 flex items-center justify-between h-14">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 shrink-0">
+      <span class="font-display font-extrabold text-base tracking-wide">
+        <span class="text-terracota">SABOR</span>
+        <span class="text-grafito"> DE CASA</span>
+      </span>
+    </a>
+
+    <!-- Tabs -->
+    <nav class="flex items-center gap-1">
+      {tabs.map((tab) => (
+        <a
+          href={tab.href}
+          class:list={[
+            'font-mono text-[11px] tracking-[0.1em] uppercase px-3 py-1.5 rounded-sm transition-colors',
+            active === tab.key
+              ? 'bg-grafito text-crema'
+              : 'text-grafito/50 hover:text-grafito hover:bg-grafito/5',
+          ]}
+        >
+          {tab.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

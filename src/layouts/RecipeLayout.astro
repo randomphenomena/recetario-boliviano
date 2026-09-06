@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Ingredient {
+  name: string;
+  amount: string;
+}
+
+interface Step {
+  text: string;
+}
+
+interface Swap {
+  original: string;
+  substitute: string;
+}
+
+interface Props {
+  numero: string;          // "014"
+  region: string;          // "Valles · Cochabamba"
+  titulo: string;          // "Silpancho"
+  subtitulo: string;       // one-line description
+  tiempo: string;          // "40 min"
+  porciones: string;       // "4"
+  dificultad: string;      // "Media"
+  historia: string;        // short story/context paragraph
+  ingredientes: Ingredient[];
+  metodo: Step[];
+  sustitutos: Swap[];
+  tags: { label: string; variant?: 'verde' | 'neutral' }[];
+}
+
+const {
+  numero,
+  region,
+  titulo,
+  subtitulo,
+  tiempo,
+  porciones,
+  dificultad,
+  historia,
+  ingredientes,
+  metodo,
+  sustitutos,
+  tags,
+} = Astro.props;
+---
+<Layout title={`${titulo} — Sabor de Casa`}>
+  <article class="max-w-3xl mx-auto px-6 sm:px-10 py-16 sm:py-20">
+
+    <!-- Eyebrow / breadcrumb -->
+    <div class="flex items-center justify-between mb-10">
+      <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde">{region}</span>
+      <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-grafito/40">Receta {numero}</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-[1.05] text-grafito mb-3">
+      {titulo}
+    </h1>
+    <p class="font-body text-grafito/60 text-base mb-10">
+      {subtitulo}
+    </p>
+
+    <!-- Meta ficha -->
+    <div class="grid grid-cols-3 border border-grafito/15 rounded-sm mb-10">
+      <div class="px-4 py-3 border-r border-grafito/15">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Tiempo</p>
+        <p class="font-mono text-sm font-medium text-grafito">{tiempo}</p>
+      </div>
+      <div class="px-4 py-3 border-r border-grafito/15">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Porciones</p>
+        <p class="font-mono text-sm font-medium text-grafito">{porciones}</p>
+      </div>
+      <div class="px-4 py-3">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Dificultad</p>
+        <p class="font-mono text-sm font-medium text-grafito">{dificultad}</p>
+      </div>
+    </div>
+
+    <!-- Intro / story -->
+    <div class="border-l-2 border-terracota pl-5 mb-14 max-w-xl">
+      <p class="font-body text-[15px] leading-relaxed text-grafito/75">
+        {historia}
+      </p>
+    </div>
+
+    <div class="w-full h-px bg-grafito/10 mb-14"></div>
+
+    <!-- Two column: ingredients / method -->
+    <div class="grid sm:grid-cols-[220px_1fr] gap-10 sm:gap-16">
+
+      <!-- Ingredients -->
+      <div>
+        <h2 class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde mb-4">Ingredientes</h2>
+        <ul class="space-y-3 font-body text-[14px] text-grafito/85">
+          {ingredientes.map((ing) => (
+            <li class="flex justify-between gap-3">
+              <span>{ing.name}</span>
+              <span class="font-mono text-grafito/50 whitespace-nowrap">{ing.amount}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Method -->
+      <div>
+        <h2 class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde mb-4">Método</h2>
+        <ol class="space-y-6">
+          {metodo.map((paso, i) => (
+            <li class="flex gap-4">
+              <span class="font-mono text-xs text-grafito/40 pt-0.5 shrink-0">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <p class="font-body text-[15px] leading-relaxed text-grafito/85">{paso.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    {sustitutos.length > 0 && (
+      <>
+        <div class="w-full h-px bg-grafito/10 my-14"></div>
+
+        <!-- Diaspora swap table -->
+        <div>
+          <h2 class="font-mono text-[11px] tracking-[0.2em] uppercase text-terracota mb-4">
+            Sustitutos para la diáspora
+          </h2>
+          <div class="border border-grafito/15 rounded-sm divide-y divide-grafito/15">
+            {sustitutos.map((swap) => (
+              <div class="grid grid-cols-[1fr_1fr] px-4 py-3">
+                <span class="font-body text-sm text-grafito/85">{swap.original}</span>
+                <span class="font-body text-sm text-grafito/55">{swap.substitute}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+
+    <!-- Tags -->
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-10">
+        {tags.map((tag) => (
+          <span
+            class:list={[
+              'font-mono text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1 border',
+              tag.variant === 'verde'
+                ? 'border-verde/40 text-verde'
+                : 'border-grafito/25 text-grafito/60',
+            ]}
+          >
+            {tag.label}
+          </span>
+        ))}
+      </div>
+    )}
+
+  </article>
+</Layout>

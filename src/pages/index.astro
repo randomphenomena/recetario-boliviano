@@ -1,249 +1,73 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import StampSeal from '../components/StampSeal.astro';
-import EmpanadaIcon from '../components/EmpanadaIcon.astro';
 
-const navItems = [
-  { label: 'INICIO', href: '#', active: true },
-  { label: 'RECETAS', href: '#recetas', active: false },
-  { label: 'GLOSARIO', href: '#glosario', active: false },
+const regiones = [
+  { label: 'Altiplano', variant: 'neutral' },
+  { label: 'Valles', variant: 'verde' },
+  { label: 'Amazonía', variant: 'neutral' },
 ];
 
-const recetas = [
-  {
-    nombre: 'Silpancho',
-    region: 'Valles',
-    tiempo: '45 min',
-    dificultad: 'Media',
-    imagen: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=600&q=80',
-    descripcion: 'Carne empanada sobre arroz, papas y huevo frito, cubierto con ensalada y salsa llajwa.',
-  },
-  {
-    nombre: 'Pique Macho',
-    region: 'Valles',
-    tiempo: '60 min',
-    dificultad: 'Media',
-    imagen: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80',
-    descripcion: 'Trozos de carne y salchicha con papas fritas, cebolla, tomate y ají.',
-  },
-  {
-    nombre: 'Sopa de Maní',
-    region: 'Valles',
-    tiempo: '90 min',
-    dificultad: 'Alta',
-    imagen: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80',
-    descripcion: 'Sopa espesa de maní con verduras, carne y fideos. Un clásico paceño.',
-  },
-  {
-    nombre: 'Salteña',
-    region: 'Altiplano',
-    tiempo: '120 min',
-    dificultad: 'Alta',
-    imagen: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80',
-    descripcion: 'Empanada jugosa rellena de carne, papas, guisantes y huevo duro.',
-  },
-  {
-    nombre: 'Api con Pastel',
-    region: 'Altiplano',
-    tiempo: '30 min',
-    dificultad: 'Baja',
-    imagen: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80',
-    descripcion: 'Bebida caliente de maíz morado con canela, servida con pastel de queso.',
-  },
-  {
-    nombre: 'Tacu Tacu',
-    region: 'Amazonía',
-    tiempo: '40 min',
-    dificultad: 'Media',
-    imagen: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80',
-    descripcion: 'Arroz y frijoles refritos en forma de tortilla, servidos con carne o pollo.',
-  },
-];
-
-const glossary = [
-  { termino: 'Ají', definicion: 'Chile rojo used extensively in Bolivian cuisine for color and heat.' },
-  { termino: 'Llajwa', definicion: 'Spicy salsa made from locoto peppers and tomatoes, ground in a batán (stone mortar).' },
-  { termino: 'Chuño', definicion: 'Freeze-dried potato, a staple of the altiplano produced through natural dehydration.' },
-  { termino: 'Charque', definicion: 'Dried and salted meat, traditionally llama or beef, similar to jerky.' },
-  { termino: 'Huminta', definicion: 'Steamed corn cake wrapped in corn husks, similar to a tamal.' },
-  { termino: 'Pampa', definicion: 'Flat high plain; also refers to a type of large, thin bread.' },
-  { termino: 'Batán', definicion: 'Traditional stone mortar used to grind corn, ají, and other ingredients.' },
-  { termino: 'Singani', definicion: 'Bolivian grape brandy, the base spirit of many traditional cocktails.' },
+const enlaces = [
+  { label: 'Recetas', href: '/recetas', desc: 'Todas las recetas' },
+  { label: 'Glosario', href: '/glosario', desc: 'Ingredientes y sustitutos' },
 ];
 ---
 <Layout title="Sabor de Casa — Recetario Boliviano">
-  <main class="relative min-h-screen overflow-hidden">
+  <main class="max-w-3xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
 
-    <!-- Left vertical nav -->
-    <nav
-      aria-label="Navegación principal"
-      class="hidden md:flex flex-col justify-center gap-14 absolute left-8 lg:left-14 top-1/2 -translate-y-1/2 z-10"
-    >
-      {navItems.map((item) => (
+    <!-- Eyebrow -->
+    <p class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde mb-8 text-center">
+      Recetario Boliviano · Altiplano · Valles · Amazonía
+    </p>
+
+    <!-- Headline -->
+    <h1 class="font-display font-extrabold text-center leading-[1.05] mb-6">
+      <span class="block text-terracota text-5xl sm:text-6xl">Con sabor</span>
+      <span class="block text-grafito text-5xl sm:text-6xl">a Bolivia</span>
+    </h1>
+
+    <!-- Nav ficha (reuses the recipe page's ticket style) -->
+    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm mb-16">
+      {enlaces.map((item, i) => (
         <a
           href={item.href}
           class:list={[
-            'font-display font-bold uppercase tracking-[0.15em] text-sm rotate-180 transition-colors',
-            item.active ? 'text-mustard' : 'text-charcoal/50 hover:text-charcoal',
+            'px-4 py-4 hover:bg-grafito/[0.03] transition-colors',
+            i < enlaces.length - 1 ? 'border-r border-grafito/15' : '',
           ]}
-          style="writing-mode: vertical-rl;"
         >
-          {item.label}
+          <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">
+            {item.desc}
+          </p>
+          <p class="font-display font-bold text-sm text-grafito">{item.label}</p>
         </a>
       ))}
-    </nav>
-
-    <!-- Right side indicator dots -->
-    <div
-      aria-hidden="true"
-      class="hidden md:flex flex-col items-center gap-3 absolute right-8 lg:right-14 top-1/2 -translate-y-1/2 z-10"
-    >
-      <span class="text-charcoal/40 text-xs leading-none">×</span>
-      <span class="text-charcoal/40 text-xs leading-none">×</span>
-      <span class="w-2 h-2 rounded-full bg-mustard mt-2"></span>
-      <span class="w-1.5 h-1.5 rounded-full border border-charcoal/40 mt-1"></span>
-      <span class="w-1.5 h-1.5 rounded-full border border-charcoal/40"></span>
-      <span class="w-1.5 h-1.5 rounded-full border border-charcoal/40"></span>
-      <span class="w-1.5 h-1.5 rounded-full border border-charcoal/40"></span>
     </div>
 
-    <!-- Hero content -->
-    <div class="flex flex-col items-center justify-center min-h-screen px-6 py-24 text-center">
+    <div class="w-full h-px bg-grafito/10 mb-10"></div>
 
-      <div class="max-w-2xl w-full">
+    <!-- Footer wordmark + region tags -->
+    <div class="flex flex-col items-center gap-6">
+      <p class="font-display leading-none text-center">
+        <span class="block text-terracota font-extrabold text-lg tracking-wide">SABOR</span>
+        <span class="block text-grafito font-bold text-lg tracking-wide -mt-0.5">DE CASA</span>
+      </p>
 
-        <!-- Headline -->
-        <h1 class="font-display leading-[0.95]">
-          <span class="flex items-center justify-center gap-4">
-            <span class="text-terracota text-5xl sm:text-6xl md:text-7xl font-black uppercase">
-              Con sabor
-            </span>
-            <span class="hidden sm:block h-[3px] w-16 bg-terracota/60"></span>
+      <div class="flex flex-wrap justify-center gap-2">
+        {regiones.map((r) => (
+          <span
+            class:list={[
+              'font-mono text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1 border',
+              r.variant === 'verde'
+                ? 'border-verde/40 text-verde'
+                : 'border-grafito/25 text-grafito/60',
+            ]}
+          >
+            {r.label}
           </span>
-
-          <span class="flex items-center justify-center gap-6 my-1">
-            <span class="text-charcoal text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase">
-              a
-            </span>
-            <StampSeal />
-          </span>
-
-          <span class="text-charcoal text-6xl sm:text-7xl md:text-8xl font-black uppercase">
-            Bolivia
-          </span>
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="font-display font-bold uppercase text-lg sm:text-xl text-charcoal mt-10 leading-snug">
-          El recetario hecho para quienes<br class="hidden sm:block" />
-          extrañan el sabor de casa.
-        </p>
-
-        <!-- Supporting copy -->
-        <p class="font-body text-ink/80 text-sm sm:text-base mt-4 max-w-md mx-auto leading-relaxed">
-          Recetas auténticas del altiplano, los valles y la amazonía —
-          con sustitutos verificados para los ingredientes que sí vas a
-          encontrar donde estés.
-        </p>
-
-        <!-- Divider -->
-        <div class="w-10 h-px bg-charcoal/30 mx-auto my-8"></div>
-
-        <!-- Footer wordmark -->
-        <div class="flex items-center justify-center gap-4">
-          <p class="font-display leading-none text-left">
-            <span class="block text-terracota font-black text-xl tracking-wide">SABOR</span>
-            <span class="block text-charcoal font-bold text-xl tracking-wide -mt-1">DE CASA</span>
-          </p>
-          <span class="w-px h-8 bg-charcoal/30"></span>
-          <EmpanadaIcon class="w-9 h-9 text-terracota" />
-        </div>
+        ))}
       </div>
     </div>
 
-    <!-- Decorative sparkle, bottom right -->
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      class="hidden md:block absolute bottom-8 right-24 w-4 h-4 text-mustard/70"
-      fill="currentColor"
-    >
-      <path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" />
-    </svg>
   </main>
-
-  <!-- Recetas Section -->
-  <section id="recetas" class="bg-charcoal text-cream py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="font-display text-4xl md:text-5xl font-black uppercase text-center mb-4">
-        Recetas <span class="text-terracota">Bolivianas</span>
-      </h2>
-      <p class="font-body text-cream/70 text-center max-w-lg mx-auto mb-12">
-        Platos tradicionales de las tres regiones de Bolivia, con instrucciones paso a paso.
-      </p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {recetas.map((receta) => (
-          <article class="bg-charcoal/50 border border-cream/10 rounded-2xl overflow-hidden hover:border-terracota/50 transition-colors group">
-            <div class="aspect-video overflow-hidden">
-              <img
-                src={receta.imagen}
-                alt={receta.nombre}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-            </div>
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-display uppercase tracking-wider text-terracota">{receta.region}</span>
-                <span class="text-cream/30">·</span>
-                <span class="text-xs font-body text-cream/50">{receta.tiempo}</span>
-                <span class="text-cream/30">·</span>
-                <span class="text-xs font-body text-cream/50">{receta.dificultad}</span>
-              </div>
-              <h3 class="font-display text-xl font-bold uppercase mb-2">{receta.nombre}</h3>
-              <p class="font-body text-sm text-cream/60 leading-relaxed">{receta.descripcion}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Glosario Section -->
-  <section id="glosario" class="bg-cream py-20 px-6">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="font-display text-4xl md:text-5xl font-black uppercase text-center mb-4 text-charcoal">
-        Glosario <span class="text-terracota">Cocinero</span>
-      </h2>
-      <p class="font-body text-ink/70 text-center max-w-lg mx-auto mb-12">
-        Términos y ingredientes típicos de la gastronomía boliviana que vas a encontrar en nuestras recetas.
-      </p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {glossary.map((item) => (
-          <div class="border-b border-charcoal/10 pb-4">
-            <h3 class="font-display text-lg font-bold uppercase text-terracota mb-1">{item.termino}</h3>
-            <p class="font-body text-sm text-ink/70 leading-relaxed">{item.definicion}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-charcoal text-cream/60 py-12 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="flex items-center justify-center gap-4 mb-6">
-        <p class="font-display leading-none text-left">
-          <span class="block text-terracota font-black text-lg tracking-wide">SABOR</span>
-          <span class="block text-cream font-bold text-lg tracking-wide -mt-1">DE CASA</span>
-        </p>
-        <EmpanadaIcon class="w-8 h-8 text-terracota" />
-      </div>
-      <p class="font-body text-sm text-cream/40">
-        Recetario Boliviano · Hecho con amor para quienes extrañan el sabor de casa.
-      </p>
-    </div>
-  </footer>
 </Layout>

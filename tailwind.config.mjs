@@ -4,15 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: '#F2ECDA',
-        terracota: '#C1512F',
-        charcoal: '#2B211B',
-        mustard: '#C79A3E',
-        ink: '#4A4038',
+        // Base
+        crema: '#FBF8F3',   // "Crema Llama" — fondo, papel de recetario
+        grafito: '#262626', // texto principal / líneas de interfaz
+        // Contraste — geografía gastronómica
+        terracota: '#C86D51', // Terracota Valle
+        verde: '#3E5C43',     // Verde Sultana / Amazonía
+        // Acento — interacción y funcionalidad
+        maracuya: '#E6A135', // Amarillo Maracuyá / Mocochinchi
       },
       fontFamily: {
-        display: ['"Big Shoulders Display"', 'sans-serif'],
-        body: ['"Inter"', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'sans-serif'], // titulares y marca
+        body: ['"Inter"', 'sans-serif'],                // cuerpo de texto
+        mono: ['"JetBrains Mono"', 'monospace'],        // fichas técnicas / etiquetas
       },
     },
   },

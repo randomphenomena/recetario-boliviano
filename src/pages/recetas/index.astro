@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeaderNav from '../../components/HeaderNav.astro';
+import { recetas } from '../../data/recetas';
+
+const recetaMasAntigua = recetas[recetas.length - 1];
+const ultimaReceta = recetas[0];
+const todasLasRecetas = recetas;
+---
+<Layout title="Recetas — Sabor de Casa">
+  <HeaderNav active="recetas" />
+
+  <main class="max-w-3xl mx-auto px-6 sm:px-10 py-12">
+
+    <!-- Page title -->
+    <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-grafito text-center mb-10">
+      Recetario
+    </h1>
+
+    <!-- 3 summary blocks -->
+    <div class="grid grid-cols-3 border border-grafito/15 rounded-sm mb-10">
+      <!-- Receta más antigua -->
+      <a href={`/recetas/${recetaMasAntigua.slug}`} class="px-4 py-4 border-r border-grafito/15 hover:bg-grafito/[0.03] transition-colors">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Receta más antigua</p>
+        <p class="font-display font-bold text-sm text-grafito">{recetaMasAntigua.titulo}</p>
+        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {recetaMasAntigua.numero}</p>
+      </a>
+
+      <!-- Lista completa (default active) -->
+      <button id="btn-lista" class="px-4 py-4 border-r border-grafito/15 bg-grafito/[0.03] hover:bg-grafito/[0.06] transition-colors text-left cursor-pointer">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-verde mb-1">Lista completa</p>
+        <p class="font-display font-bold text-sm text-grafito">{todasLasRecetas.length} recetas</p>
+        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Todas las recetas</p>
+      </button>
+
+      <!-- Última receta -->
+      <a href={`/recetas/${ultimaReceta.slug}`} class="px-4 py-4 hover:bg-grafito/[0.03] transition-colors">
+        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Última receta</p>
+        <p class="font-display font-bold text-sm text-grafito">{ultimaReceta.titulo}</p>
+        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {ultimaReceta.numero}</p>
+      </a>
+    </div>
+
+    <div class="w-full h-px bg-grafito/10 mb-8"></div>
+
+    <!-- Lista completa (paginada) -->
+    <div id="lista-container">
+      <div id="lista-items" class="divide-y divide-grafito/10">
+        {todasLasRecetas.map((r) => (
+          <a href={`/recetas/${r.slug}`} class="flex items-center justify-between py-3 hover:bg-grafito/[0.02] transition-colors group">
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-[11px] text-grafito/35 shrink-0 w-7">{r.numero}</span>
+              <div>
+                <p class="font-display font-bold text-sm text-grafito group-hover:text-terracota transition-colors">{r.titulo}</p>
+                <p class="font-mono text-[10px] text-grafito/40">{r.region} · {r.tiempo} · {r.dificultad}</p>
+              </div>
+            </div>
+            <span class="text-grafito/20 group-hover:text-terracota transition-colors text-lg">&rsaquo;</span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-between mt-6">
+        <button id="btn-prev" class="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-grafito/40 hover:text-grafito transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">
+          <span class="text-base leading-none">&lsaquo;</span> Anterior
+        </button>
+        <span id="page-info" class="font-mono text-[11px] text-grafito/40"></span>
+        <button id="btn-next" class="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-grafito/40 hover:text-grafito transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">
+          Siguiente <span class="text-base leading-none">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+</Layout>
+
+<script>
+  const PER_PAGE = 10;
+  const items = document.querySelectorAll('#lista-items a') as NodeListOf<HTMLAnchorElement>;
+  const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
+  const btnNext = document.getElementById('btn-next') as HTMLButtonElement;
+  const pageInfo = document.getElementById('page-info')!;
+  const totalPages = Math.ceil(items.length / PER_PAGE);
+  let currentPage = 1;
+
+  function showPage(page: number) {
+    currentPage = page;
+    const start = (page - 1) * PER_PAGE;
+    const end = start + PER_PAGE;
+    items.forEach((el, i) => {
+      el.style.display = i >= start && i < end ? '' : 'none';
+    });
+    pageInfo.textContent = `${page} / ${totalPages}`;
+    btnPrev.disabled = page <= 1;
+    btnNext.disabled = page >= totalPages;
+  }
+
+  btnPrev.addEventListener('click', () => { if (currentPage > 1) showPage(currentPage - 1); });
+  btnNext.addEventListener('click', () => { if (currentPage < totalPages) showPage(currentPage + 1); });
+
+  showPage(1);
+</script>
