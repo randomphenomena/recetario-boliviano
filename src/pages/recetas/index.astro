@@ -1,11 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import HeaderNav from '../../components/HeaderNav.astro';
-import { recetas } from '../../data/recetas';
+
+const recetas = (await getCollection('recetas')).sort((a, b) => 
+  Number(b.data.numero) - Number(a.data.numero)
+);
 
 const recetaMasAntigua = recetas[recetas.length - 1];
 const ultimaReceta = recetas[0];
-const todasLasRecetas = recetas;
 ---
 <Layout title="Recetas — Sabor de Casa">
   <HeaderNav active="recetas" />
@@ -22,22 +25,22 @@ const todasLasRecetas = recetas;
       <!-- Receta más antigua -->
       <a href={`/recetas/${recetaMasAntigua.slug}`} class="px-4 py-4 border-r border-grafito/15 hover:bg-grafito/[0.03] transition-colors">
         <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Receta más antigua</p>
-        <p class="font-display font-bold text-sm text-grafito">{recetaMasAntigua.titulo}</p>
-        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {recetaMasAntigua.numero}</p>
+        <p class="font-display font-bold text-sm text-grafito">{recetaMasAntigua.data.titulo}</p>
+        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {recetaMasAntigua.data.numero}</p>
       </a>
 
       <!-- Lista completa (default active) -->
       <button id="btn-lista" class="px-4 py-4 border-r border-grafito/15 bg-grafito/[0.03] hover:bg-grafito/[0.06] transition-colors text-left cursor-pointer">
         <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-verde mb-1">Lista completa</p>
-        <p class="font-display font-bold text-sm text-grafito">{todasLasRecetas.length} recetas</p>
+        <p class="font-display font-bold text-sm text-grafito">{recetas.length} recetas</p>
         <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Todas las recetas</p>
       </button>
 
       <!-- Última receta -->
       <a href={`/recetas/${ultimaReceta.slug}`} class="px-4 py-4 hover:bg-grafito/[0.03] transition-colors">
         <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Última receta</p>
-        <p class="font-display font-bold text-sm text-grafito">{ultimaReceta.titulo}</p>
-        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {ultimaReceta.numero}</p>
+        <p class="font-display font-bold text-sm text-grafito">{ultimaReceta.data.titulo}</p>
+        <p class="font-mono text-[10px] text-grafito/40 mt-0.5">Receta {ultimaReceta.data.numero}</p>
       </a>
     </div>
 
@@ -46,13 +49,13 @@ const todasLasRecetas = recetas;
     <!-- Lista completa (paginada) -->
     <div id="lista-container">
       <div id="lista-items" class="divide-y divide-grafito/10">
-        {todasLasRecetas.map((r) => (
+        {recetas.map((r) => (
           <a href={`/recetas/${r.slug}`} class="flex items-center justify-between py-3 hover:bg-grafito/[0.02] transition-colors group">
             <div class="flex items-center gap-3">
-              <span class="font-mono text-[11px] text-grafito/35 shrink-0 w-7">{r.numero}</span>
+              <span class="font-mono text-[11px] text-grafito/35 shrink-0 w-7">{r.data.numero}</span>
               <div>
-                <p class="font-display font-bold text-sm text-grafito group-hover:text-terracota transition-colors">{r.titulo}</p>
-                <p class="font-mono text-[10px] text-grafito/40">{r.region} · {r.tiempo} · {r.dificultad}</p>
+                <p class="font-display font-bold text-sm text-grafito group-hover:text-terracota transition-colors">{r.data.titulo}</p>
+                <p class="font-mono text-[10px] text-grafito/40">{r.data.region} · {r.data.tiempo} · {r.data.dificultad}</p>
               </div>
             </div>
             <span class="text-grafito/20 group-hover:text-terracota transition-colors text-lg">&rsaquo;</span>

@@ -13,41 +13,41 @@ const enlaces = [
 ];
 ---
 <Layout title="Sabor de Casa — Recetario Boliviano">
-  <main class="max-w-3xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
+  <main class="max-w-3xl mx-auto px-6 sm:px-10 pt-24 sm:pt-32 pb-20 sm:pb-28">
 
     <!-- Eyebrow -->
-    <p class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde mb-8 text-center">
+    <p class="font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-verde mb-10 sm:mb-12 text-center">
       Recetario Boliviano · Altiplano · Valles · Amazonía
     </p>
 
     <!-- Headline -->
-    <h1 class="font-display font-extrabold text-center leading-[1.05] mb-6">
-      <span class="block text-terracota text-5xl sm:text-6xl">Con sabor</span>
-      <span class="block text-grafito text-5xl sm:text-6xl">a Bolivia</span>
+    <h1 class="font-display font-extrabold text-center leading-[1.05] mb-10 sm:mb-14">
+      <span class="block text-terracota text-4xl sm:text-5xl md:text-6xl">Con sabor</span>
+      <span class="block text-grafito text-4xl sm:text-5xl md:text-6xl">a Bolivia</span>
     </h1>
 
-    <!-- Nav ficha (reuses the recipe page's ticket style) -->
-    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm mb-16">
+    <!-- Nav ficha -->
+    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm mb-14 sm:mb-20">
       {enlaces.map((item, i) => (
         <a
           href={item.href}
           class:list={[
-            'px-4 py-4 hover:bg-grafito/[0.03] transition-colors',
+            'px-5 py-5 sm:px-6 sm:py-6 hover:bg-grafito/[0.03] transition-colors',
             i < enlaces.length - 1 ? 'border-r border-grafito/15' : '',
           ]}
         >
-          <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">
+          <p class="font-mono text-[9px] sm:text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1.5">
             {item.desc}
           </p>
-          <p class="font-display font-bold text-sm text-grafito">{item.label}</p>
+          <p class="font-display font-bold text-sm sm:text-base text-grafito">{item.label}</p>
         </a>
       ))}
     </div>
 
-    <div class="w-full h-px bg-grafito/10 mb-10"></div>
+    <div class="w-full h-px bg-grafito/10 mb-14 sm:mb-20"></div>
 
     <!-- Footer wordmark + region tags -->
-    <div class="flex flex-col items-center gap-6">
+    <div class="flex flex-col items-center gap-8">
       <p class="font-display leading-none text-center">
         <span class="block text-terracota font-extrabold text-lg tracking-wide">SABOR</span>
         <span class="block text-grafito font-bold text-lg tracking-wide -mt-0.5">DE CASA</span>
@@ -57,7 +57,7 @@ const enlaces = [
         {regiones.map((r) => (
           <span
             class:list={[
-              'font-mono text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1 border',
+              'font-mono text-[9px] sm:text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1.5 border',
               r.variant === 'verde'
                 ? 'border-verde/40 text-verde'
                 : 'border-grafito/25 text-grafito/60',

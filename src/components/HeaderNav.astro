@@ -12,22 +12,22 @@ const tabs = [
 ];
 ---
 <header class="sticky top-0 z-50 bg-crema/90 backdrop-blur border-b border-grafito/10">
-  <div class="max-w-5xl mx-auto px-6 sm:px-10 flex items-center justify-between h-14">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-12 sm:h-14">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 shrink-0">
-      <span class="font-display font-extrabold text-base tracking-wide">
+    <a href="/" class="flex items-center gap-1.5 shrink-0">
+      <span class="font-display font-extrabold text-sm sm:text-base tracking-wide">
         <span class="text-terracota">SABOR</span>
         <span class="text-grafito"> DE CASA</span>
       </span>
     </a>
 
     <!-- Tabs -->
-    <nav class="flex items-center gap-1">
+    <nav class="flex items-center gap-0.5 sm:gap-1">
       {tabs.map((tab) => (
         <a
           href={tab.href}
           class:list={[
-            'font-mono text-[11px] tracking-[0.1em] uppercase px-3 py-1.5 rounded-sm transition-colors',
+            'font-mono text-[9px] sm:text-[11px] tracking-[0.05em] sm:tracking-[0.1em] uppercase px-2 sm:px-3 py-1 sm:py-1.5 rounded-sm transition-colors',
             active === tab.key
               ? 'bg-grafito text-crema'
               : 'text-grafito/50 hover:text-grafito hover:bg-grafito/5',

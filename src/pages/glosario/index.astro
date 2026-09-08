@@ -1,17 +1,82 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import HeaderNav from '../../components/HeaderNav.astro';
+
+const glosario = (await getCollection('glosario')).sort((a, b) =>
+  a.data.termino.localeCompare(b.data.termino, 'es')
+);
+
+// Agrupar por primera letra
+const grouped = glosario.reduce((acc, entry) => {
+  const letter = entry.data.termino[0].toUpperCase();
+  if (!acc[letter]) acc[letter] = [];
+  acc[letter].push(entry);
+  return acc;
+}, {} as Record<string, typeof glosario>);
+
+const letters = Object.keys(grouped).sort();
+
+// Pre-render all content
+const renderedEntries = await Promise.all(
+  glosario.map(async (entry) => {
+    const { Content } = await entry.render();
+    return { ...entry, Content };
+  })
+);
+
+const groupedRendered = renderedEntries.reduce((acc, entry) => {
+  const letter = entry.data.termino[0].toUpperCase();
+  if (!acc[letter]) acc[letter] = [];
+  acc[letter].push(entry);
+  return acc;
+}, {} as Record<string, typeof renderedEntries>);
 ---
 <Layout title="Glosario — Sabor de Casa">
   <HeaderNav active="glosario" />
 
-  <main class="max-w-3xl mx-auto px-6 sm:px-10 py-12">
-    <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-grafito text-center mb-4">
-      Glosario
-    </h1>
-    <p class="font-body text-sm text-grafito/55 text-center max-w-md mx-auto mb-10">
-      Términos e ingredientes típicos de la gastronomía boliviana.
-    </p>
-    <div class="w-full h-px bg-grafito/10"></div>
+  <main class="max-w-5xl mx-auto px-6 sm:px-10 py-12 sm:py-16">
+
+    <!-- Header -->
+    <div class="text-center mb-12 sm:mb-16">
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl text-terracota mb-4">
+        Glosario
+      </h1>
+      <p class="font-body text-sm sm:text-base text-grafito/60 max-w-md mx-auto leading-relaxed">
+        Ingredientes bolivianos, qué son y con qué reemplazarlos si no los encuentras donde estés.
+      </p>
+    </div>
+
+    <!-- Grid de columnas -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
+      {letters.map((letter) => (
+        <div>
+          <!-- Letra grande -->
+          <span class="block font-display font-extrabold text-5xl sm:text-6xl text-terracota/80 leading-none mb-6">
+            {letter.toLowerCase()}
+          </span>
+
+          <!-- Entradas de esta letra -->
+          <div class="space-y-6">
+            {groupedRendered[letter].map((entry) => (
+              <div>
+                <h2 class="font-mono text-[11px] tracking-[0.15em] uppercase font-bold text-grafito mb-1.5">
+                  {entry.data.termino}
+                </h2>
+                <div class="font-body text-[13px] sm:text-sm text-grafito/70 leading-relaxed mb-2">
+                  <entry.Content />
+                </div>
+                {entry.data.sustituto && (
+                  <p class="font-body text-[12px] sm:text-[13px] text-terracota/80 leading-relaxed">
+                    <span class="font-semibold">Sustituto:</span> {entry.data.sustituto}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
   </main>
 </Layout>
