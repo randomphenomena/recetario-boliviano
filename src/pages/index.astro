@@ -1,12 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const regiones = [
-  { label: 'Altiplano', variant: 'neutral' },
-  { label: 'Valles', variant: 'verde' },
-  { label: 'Amazonía', variant: 'neutral' },
-];
-
 const enlaces = [
   { label: 'Recetas', href: '/recetas', desc: 'Todas las recetas' },
   { label: 'Glosario', href: '/glosario', desc: 'Ingredientes y sustitutos' },
@@ -27,7 +21,7 @@ const enlaces = [
     </h1>
 
     <!-- Nav ficha -->
-    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm mb-14 sm:mb-20">
+    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm">
       {enlaces.map((item, i) => (
         <a
           href={item.href}
@@ -42,31 +36,6 @@ const enlaces = [
           <p class="font-display font-bold text-sm sm:text-base text-grafito">{item.label}</p>
         </a>
       ))}
-    </div>
-
-    <div class="w-full h-px bg-grafito/10 mb-14 sm:mb-20"></div>
-
-    <!-- Footer wordmark + region tags -->
-    <div class="flex flex-col items-center gap-8">
-      <p class="font-display leading-none text-center">
-        <span class="block text-terracota font-extrabold text-lg tracking-wide">SABOR</span>
-        <span class="block text-grafito font-bold text-lg tracking-wide -mt-0.5">DE CASA</span>
-      </p>
-
-      <div class="flex flex-wrap justify-center gap-2">
-        {regiones.map((r) => (
-          <span
-            class:list={[
-              'font-mono text-[9px] sm:text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1.5 border',
-              r.variant === 'verde'
-                ? 'border-verde/40 text-verde'
-                : 'border-grafito/25 text-grafito/60',
-            ]}
-          >
-            {r.label}
-          </span>
-        ))}
-      </div>
     </div>
 
   </main>

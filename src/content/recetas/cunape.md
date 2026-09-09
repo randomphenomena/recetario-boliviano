@@ -1,8 +1,7 @@
 ---
-numero: "004"
-region: "Valles · Cochabamba"
-titulo: "Lomo Saltado"
-subtitulo: "Tiras de lomo salteadas con cebolla, tomate, papas fritas y salsa de soya."
+numero: "001"
+titulo: "Cuñape"
+subtitulo: ""
 tiempo: "25 min"
 porciones: "4"
 dificultad: "Media"

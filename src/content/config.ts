@@ -4,12 +4,10 @@ const recetasCollection = defineCollection({
   type: 'content',
   schema: z.object({
     numero: z.string(),
-    region: z.string(),
     titulo: z.string(),
     subtitulo: z.string(),
     tiempo: z.string(),
     porciones: z.string(),
-    dificultad: z.string(),
     ingredientes: z.array(z.object({
       name: z.string(),
       amount: z.string(),
@@ -25,6 +23,7 @@ const recetasCollection = defineCollection({
       label: z.string(),
       variant: z.enum(['verde', 'neutral']).optional(),
     })).optional().default([]),
+    notas: z.string().optional(),
   }),
 });
 

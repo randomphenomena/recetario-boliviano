@@ -17,33 +17,27 @@ interface Swap {
 }
 
 interface Props {
-  numero: string;          // "014"
-  region: string;          // "Valles · Cochabamba"
-  titulo: string;          // "Silpancho"
-  subtitulo: string;       // one-line description
-  tiempo: string;          // "40 min"
-  porciones: string;       // "4"
-  dificultad: string;      // "Media"
-  historia: string;        // short story/context paragraph
+  numero: string;
+  titulo: string;
+  subtitulo: string;
+  tiempo: string;
+  porciones: string;
   ingredientes: Ingredient[];
   metodo: Step[];
   sustitutos: Swap[];
-  tags: { label: string; variant?: 'verde' | 'neutral' }[];
+  notas?: string;
 }
 
 const {
   numero,
-  region,
   titulo,
   subtitulo,
   tiempo,
   porciones,
-  dificultad,
-  historia,
   ingredientes,
   metodo,
   sustitutos,
-  tags,
+  notas,
 } = Astro.props;
 ---
 <Layout title={`${titulo} — Sabor de Casa`}>
@@ -51,8 +45,7 @@ const {
   <article class="max-w-3xl mx-auto px-6 sm:px-10 py-16 sm:py-20">
 
     <!-- Eyebrow / breadcrumb -->
-    <div class="flex items-center justify-between mb-10">
-      <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde">{region}</span>
+    <div class="flex items-center justify-end mb-10">
       <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-grafito/40">Receta {numero}</span>
     </div>
 
@@ -65,31 +58,16 @@ const {
     </p>
 
     <!-- Meta ficha -->
-    <div class="grid grid-cols-3 border border-grafito/15 rounded-sm mb-10">
+    <div class="grid grid-cols-2 border border-grafito/15 rounded-sm mb-10">
       <div class="px-4 py-3 border-r border-grafito/15">
         <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Tiempo</p>
         <p class="font-mono text-sm font-medium text-grafito">{tiempo}</p>
       </div>
-      <div class="px-4 py-3 border-r border-grafito/15">
+      <div class="px-4 py-3">
         <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Porciones</p>
         <p class="font-mono text-sm font-medium text-grafito">{porciones}</p>
       </div>
-      <div class="px-4 py-3">
-        <p class="font-mono text-[10px] tracking-[0.15em] uppercase text-grafito/45 mb-1">Dificultad</p>
-        <p class="font-mono text-sm font-medium text-grafito">{dificultad}</p>
-      </div>
     </div>
-
-    <!-- Intro / story -->
-    {historia ? (
-      <div class="border-l-2 border-terracota pl-5 mb-14 max-w-xl">
-        <p class="font-body text-[15px] leading-relaxed text-grafito/75">
-          {historia}
-        </p>
-      </div>
-    ) : (
-      <slot />
-    )}
 
     <div class="w-full h-px bg-grafito/10 mb-14"></div>
 
@@ -146,22 +124,16 @@ const {
       </>
     )}
 
-    <!-- Tags -->
-    {tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mt-10">
-        {tags.map((tag) => (
-          <span
-            class:list={[
-              'font-mono text-[10px] tracking-[0.1em] uppercase rounded-full px-3 py-1 border',
-              tag.variant === 'verde'
-                ? 'border-verde/40 text-verde'
-                : 'border-grafito/25 text-grafito/60',
-            ]}
-          >
-            {tag.label}
-          </span>
-        ))}
-      </div>
+    {notas && (
+      <>
+        <div class="w-full h-px bg-grafito/10 my-14"></div>
+
+        <!-- Notas -->
+        <div>
+          <h2 class="font-mono text-[11px] tracking-[0.2em] uppercase text-verde mb-4">Notas</h2>
+          <p class="font-body text-[14px] leading-relaxed text-grafito/70">{notas}</p>
+        </div>
+      </>
     )}
 
   </article>
