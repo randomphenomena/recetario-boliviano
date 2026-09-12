@@ -146,84 +146,84 @@ declare module 'astro:content' {
   slug: "achachairu";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "aji-amarillo.md": {
 	id: "aji-amarillo.md";
   slug: "aji-amarillo";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "charque.md": {
 	id: "charque.md";
   slug: "charque";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "chuno.md": {
 	id: "chuno.md";
   slug: "chuno";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "huminta.md": {
 	id: "huminta.md";
   slug: "huminta";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "llajwa.md": {
 	id: "llajwa.md";
   slug: "llajwa";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "locoto.md": {
 	id: "locoto.md";
   slug: "locoto";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "mani.md": {
 	id: "mani.md";
   slug: "mani";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "mote.md": {
 	id: "mote.md";
   slug: "mote";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "quinua.md": {
 	id: "quinua.md";
   slug: "quinua";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "quirquina.md": {
 	id: "quirquina.md";
   slug: "quirquina";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 "singani.md": {
 	id: "singani.md";
   slug: "singani";
   body: string;
   collection: "glosario";
-  data: InferEntrySchema<"glosario">
+  data: any
 } & { render(): Render[".md"] };
 };
 "recetas": {
@@ -232,7 +232,7 @@ declare module 'astro:content' {
   slug: "cunape";
   body: string;
   collection: "recetas";
-  data: InferEntrySchema<"recetas">
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -244,5 +244,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("./../../src/content/config.js");
+	export type ContentConfig = never;
 }

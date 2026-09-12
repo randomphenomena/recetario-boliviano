@@ -7,16 +7,6 @@ const glosario = (await getCollection('glosario')).sort((a, b) =>
   a.data.termino.localeCompare(b.data.termino, 'es')
 );
 
-// Agrupar por primera letra
-const grouped = glosario.reduce((acc, entry) => {
-  const letter = entry.data.termino[0].toUpperCase();
-  if (!acc[letter]) acc[letter] = [];
-  acc[letter].push(entry);
-  return acc;
-}, {} as Record<string, typeof glosario>);
-
-const letters = Object.keys(grouped).sort();
-
 // Pre-render all content
 const renderedEntries = await Promise.all(
   glosario.map(async (entry) => {
@@ -31,6 +21,8 @@ const groupedRendered = renderedEntries.reduce((acc, entry) => {
   acc[letter].push(entry);
   return acc;
 }, {} as Record<string, typeof renderedEntries>);
+
+const letters = Object.keys(groupedRendered).sort();
 ---
 <Layout title="Glosario — Sabor de Casa">
   <HeaderNav active="glosario" />

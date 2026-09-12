@@ -19,10 +19,6 @@ const recetasCollection = defineCollection({
       original: z.string(),
       substitute: z.string(),
     })).optional().default([]),
-    tags: z.array(z.object({
-      label: z.string(),
-      variant: z.enum(['verde', 'neutral']).optional(),
-    })).optional().default([]),
     notas: z.string().optional(),
   }),
 });

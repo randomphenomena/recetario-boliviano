@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import HeaderNav from '../../components/HeaderNav.astro';
 
-const recetas = (await getCollection('recetas')).sort((a, b) => 
+const recetas = (await getCollection('recetas')).sort((a: CollectionEntry<'recetas'>, b: CollectionEntry<'recetas'>) => 
   Number(b.data.numero) - Number(a.data.numero)
 );
 
@@ -49,13 +49,12 @@ const ultimaReceta = recetas[0];
     <!-- Lista completa (paginada) -->
     <div id="lista-container">
       <div id="lista-items" class="divide-y divide-grafito/10">
-        {recetas.map((r) => (
+        {recetas.map((r: CollectionEntry<'recetas'>) => (
           <a href={`/recetas/${r.slug}`} class="flex items-center justify-between py-3 hover:bg-grafito/[0.02] transition-colors group">
             <div class="flex items-center gap-3">
               <span class="font-mono text-[11px] text-grafito/35 shrink-0 w-7">{r.data.numero}</span>
               <div>
                 <p class="font-display font-bold text-sm text-grafito group-hover:text-terracota transition-colors">{r.data.titulo}</p>
-               
               </div>
             </div>
             <span class="text-grafito/20 group-hover:text-terracota transition-colors text-lg">&rsaquo;</span>
