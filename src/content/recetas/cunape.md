@@ -2,19 +2,16 @@
 numero: "001"
 titulo: "Cuñape"
 subtitulo: ""
-tiempo: "25 min"
-porciones: "4"
-dificultad: "Media"
+tiempo: "15 min (AirFryer) a 200º"
+porciones: "Depende el tamaño de los cuñapes"
 ingredientes:
-  - { name: "Lomo de res, en tiras", amount: "500 g" }
-  - { name: "Cebolla, en plumas gruesas", amount: "2 u." }
-  - { name: "Tomate, en gajos", amount: "2 u." }
-  - { name: "Papa frita", amount: "4 u." }
-  - { name: "Salsa de soya", amount: "3 cdas" }
-  - { name: "Vinagre tinto", amount: "1 cda" }
-  - { name: "Ají amarillo", amount: "1 u." }
-  - { name: "Cilantro fresco", amount: "c/n" }
-  - { name: "Arroz blanco", amount: "2 tazas" }
+  - { name: "Harina de Yuca", amount: "400 g" }
+  - { name: "Queso rallado", amount: "300 g" }
+  - { name: "Huevos", amount: "2 u." }
+  - { name: "Mantequilla", amount: " 100 g" }
+  - { name: "Leche", amount: "1/2 taza" }
+  - { name: "Sal (Opcional)", amount: "1 cda" }
+ 
 metodo:
   - { text: "Calienta el wok o sartén grande a fuego muy alto con un chorrito de aceite." }
   - { text: "Saltea el lomo en tandas pequeñas, 1-2 minutos por lado. Reserva." }
